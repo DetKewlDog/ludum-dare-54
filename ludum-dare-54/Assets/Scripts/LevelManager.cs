@@ -22,6 +22,9 @@ public class LevelManager : MonoBehaviour
     public List<FarmTile> farmTiles;
 
     private Tile[] farmlandTiles;
+    private List<Vector3Int> originalFarmPositions;
+
+    private Vector2 cornerBottomLeft, cornerTopRight;
 
     void Start() {
         Instance = this;
@@ -30,6 +33,8 @@ public class LevelManager : MonoBehaviour
             tile.sprite = farmlandSprites[i];
             return tile;
         }).ToArray();
+        cornerBottomLeft = -farmSize / 2;
+        cornerTopRight = farmSize / 2;
     }
 
     public FarmTile GetFarmTile(Vector3Int position) {
@@ -43,10 +48,41 @@ public class LevelManager : MonoBehaviour
 
     public void GenerateLevel() {
         groundTilemap.FillWithTile(grassTile, -farmSize / 2 - Vector2Int.one * 5, farmSize / 2 + Vector2Int.one * 5);
-        farmTiles = farmTilemap.FillWithTile(farmlandTiles[0], -farmSize / 2, farmSize / 2).Select(x => new FarmTile(x)).ToList();
+        originalFarmPositions = farmTilemap.FillWithTile(farmlandTiles[0], -farmSize / 2, farmSize / 2);
+        farmTiles = originalFarmPositions.Select(x => new FarmTile(x)).ToList();
     }
 
     public TileBase GetFarmlandTile(float moisture) => farmlandTiles[(int)(moisture * (farmlandTiles.Length - 1))];
+
+    public void ShrinkFarm() {
+        cornerBottomLeft += Vector2.one;
+        cornerTopRight -= Vector2.one;
+        var newFarmTiles = farmTiles.Where(i =>
+            i.position.x >= cornerBottomLeft.x
+            && i.position.x <= cornerTopRight.x
+            && i.position.y >= cornerBottomLeft.y
+            && i.position.y <= cornerTopRight.y
+        ).ToList();
+        var tilesToRemove = farmTiles.Except(newFarmTiles);
+        foreach (var tile in tilesToRemove) {
+            tile.IsUsable = false;
+            farmTilemap.SetTile(tile.position, null);
+        }
+        farmTiles = newFarmTiles;
+    }
+    public void EnlargeFarm() {
+        cornerBottomLeft -= Vector2.one;
+        cornerTopRight += Vector2.one;
+        var newFarmTiles = originalFarmPositions.Where(i =>
+            i.x >= cornerBottomLeft.x
+            && i.x <= cornerTopRight.x
+            && i.y >= cornerBottomLeft.y
+            && i.y <= cornerTopRight.y
+        ).Except(farmTiles.Select(x => x.position))
+        .Select(x => new FarmTile(x)).ToList();
+        farmTiles.AddRange(newFarmTiles);
+        newFarmTiles.ForEach(i => farmTilemap.SetTile(i.position, farmlandTiles[0]));
+    }
 }
 
 [System.Serializable]
@@ -56,7 +92,10 @@ public class FarmTile {
     protected bool _isUsable = true;
     public bool IsUsable {
         get => _isUsable;
-        set { if ((_isUsable = value) && _crop != null) _crop.Destroy(); }
+        set {
+            _isUsable = value;
+            if (!_isUsable && _crop != null) _crop.Destroy();
+        }
     }
 
     protected Crop _crop = null;
@@ -66,6 +105,7 @@ public class FarmTile {
     }
 
     public FarmTile(Vector3Int pos) => position = pos;
+    public override string ToString() => position.ToString();
 }
 
 public static class TilemapExtensions {
