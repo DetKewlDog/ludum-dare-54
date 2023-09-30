@@ -24,6 +24,17 @@ public class CursorHandler : MonoBehaviour
         mousePos.z = 10;
         position = mainCamera.ScreenToWorldPoint(mousePos);
         transform.position = position;
+
+        if (Input.GetKey("mouse 0")) {
+            LevelManager.Instance.SetCrop(Instantiate(Resources.Load<Crop>("Crops/Crop")), Vector3Int.FloorToInt(position));
+            Debug.Log($"planetd crop at {Vector3Int.FloorToInt(position)}");
+        }
+        if (Input.GetKey("mouse 1")) {
+            var farmTile = LevelManager.Instance.GetFarmTile(Vector3Int.FloorToInt(position));
+            if (farmTile == null || !farmTile.IsUsable || farmTile.Crop == null) return;
+            farmTile.Crop.AddWater();
+            Debug.Log($"added water to crop at {Vector3Int.FloorToInt(position)}");
+        }
     }
 
     void OnApplicationFocus(bool hasFocus) {

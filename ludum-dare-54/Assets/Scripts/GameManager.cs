@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,12 +12,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Instance = this;
-        LevelManager.GetFarm();
+        LevelManager.Instance.GenerateLevel();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

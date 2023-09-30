@@ -1,16 +1,22 @@
 fileFormatVersion: 2
-guid: 95c13e1ff6c9bfd42a2e851f01e26416
+guid: 3ff6e34b4a2c5db4c918d1d33eed28c8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3054017006069630315
-    second: FarmTile_0
+      213: 1998735772204047069
+    second: Crop_0
   - first:
-      213: -5845479727364159030
-    second: FarmTile_1
+      213: 4488722804651983861
+    second: Crop_1
   - first:
-      213: 5919510904825316498
-    second: FarmTile_2
+      213: -3649760365684577334
+    second: Crop_2
+  - first:
+      213: -1493637790677746443
+    second: Crop_3
+  - first:
+      213: -6416742037857200102
+    second: Crop_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -70,7 +76,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 64
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -82,7 +88,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 64
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -94,7 +100,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: iPhone
-    maxTextureSize: 64
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -106,7 +112,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 64
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -118,7 +124,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
-    maxTextureSize: 64
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -132,7 +138,49 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FarmTile_0
+      name: Crop_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dda9616589fecbb10800000000000000
+      internalID: 1998735772204047069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Crop_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f30a7acb952b4e30800000000000000
+      internalID: 4488722804651983861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Crop_2
       rect:
         serializedVersion: 2
         x: 0
@@ -146,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59ab73fb6b3fd95d0800000000000000
-      internalID: -3054017006069630315
+      spriteID: acb2210e842795dc0800000000000000
+      internalID: -3649760365684577334
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FarmTile_1
+      name: Crop_3
       rect:
         serializedVersion: 2
         x: 0
@@ -167,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac946bc982fa0eea0800000000000000
-      internalID: -5845479727364159030
+      spriteID: 5fcbd8fc758854be0800000000000000
+      internalID: -1493637790677746443
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FarmTile_2
+      name: Crop_4
       rect:
         serializedVersion: 2
         x: 0
@@ -188,8 +236,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2940a261ec3562250800000000000000
-      internalID: 5919510904825316498
+      spriteID: a18943a2d1723f6a0800000000000000
+      internalID: -6416742037857200102
       vertices: []
       indices: 
       edges: []
@@ -197,7 +245,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 66c49f4e57c78aa45bc68427f3b6675f
     internalID: 0
     vertices: []
     indices: 

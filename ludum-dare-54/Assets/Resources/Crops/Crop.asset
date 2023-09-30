@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e50c7a8abe9794e85c55d75c153388, type: 3}
+  m_Name: Crop
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 1998735772204047069, guid: 3ff6e34b4a2c5db4c918d1d33eed28c8, type: 3}
+  - {fileID: 4488722804651983861, guid: 3ff6e34b4a2c5db4c918d1d33eed28c8, type: 3}
+  - {fileID: -3649760365684577334, guid: 3ff6e34b4a2c5db4c918d1d33eed28c8, type: 3}
+  - {fileID: -1493637790677746443, guid: 3ff6e34b4a2c5db4c918d1d33eed28c8, type: 3}
+  - {fileID: -6416742037857200102, guid: 3ff6e34b4a2c5db4c918d1d33eed28c8, type: 3}
+  growthChance: 0.1
+  growthRate: 0.2

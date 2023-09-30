@@ -38,6 +38,7 @@
   <ItemGroup>
      <Compile Include="Assets\CameraController.cs" />
      <Compile Include="Assets\LevelManager.cs" />
+     <Compile Include="Assets\Scripts\Crop.cs" />
      <Compile Include="Assets\Scripts\CursorHandler.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
