@@ -28,7 +28,10 @@ public class Crop : ScriptableObject
         growCo = LevelManager.Instance.StartCoroutine(GrowCo());
     }
 
-    public void AddWater() => moistureLevel = 1;
+    public void AddWater() {
+        moistureLevel = 1;
+        UpdateMoisture();
+    }
 
     public void Destroy() {
         LevelManager.Instance.StopCoroutine(growCo);
@@ -37,7 +40,7 @@ public class Crop : ScriptableObject
         Destroy(this);
     }
 
-    private void UpdateCrop() => cropTilemap.SetTile(pos, tiles[(int)(age * tiles.Length)]);
+    private void UpdateCrop() => cropTilemap.SetTile(pos, tiles[(int)(age * (tiles.Length - 1))]);
     private void UpdateMoisture() => farmTilemap.SetTile(pos, LevelManager.Instance.GetFarmlandTile(moistureLevel));
 
     private IEnumerator GrowCo() {
@@ -48,7 +51,7 @@ public class Crop : ScriptableObject
         UpdateMoisture();
         while (age < 1) {
             yield return waitForSeconds;
-            moistureLevel -= 0.0333f;
+            moistureLevel -= 0.01f;
             if (moistureLevel <= 0) {
                 Destroy();
                 yield break;

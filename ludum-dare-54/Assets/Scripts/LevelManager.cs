@@ -46,7 +46,7 @@ public class LevelManager : MonoBehaviour
         farmTiles = farmTilemap.FillWithTile(farmlandTiles[0], -farmSize / 2, farmSize / 2).Select(x => new FarmTile(x)).ToList();
     }
 
-    public TileBase GetFarmlandTile(float moisture) => farmlandTiles[(int)(moisture * farmlandTiles.Length)];
+    public TileBase GetFarmlandTile(float moisture) => farmlandTiles[(int)(moisture * (farmlandTiles.Length - 1))];
 }
 
 [System.Serializable]

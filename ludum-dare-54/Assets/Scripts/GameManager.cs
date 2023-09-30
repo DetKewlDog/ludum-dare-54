@@ -14,10 +14,4 @@ public class GameManager : MonoBehaviour
         Instance = this;
         LevelManager.Instance.GenerateLevel();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

@@ -19,4 +19,4 @@ MonoBehaviour:
   - {fileID: -1493637790677746443, guid: 3ff6e34b4a2c5db4c918d1d33eed28c8, type: 3}
   - {fileID: -6416742037857200102, guid: 3ff6e34b4a2c5db4c918d1d33eed28c8, type: 3}
   growthChance: 0.1
-  growthRate: 0.2
+  growthRate: 0.35
