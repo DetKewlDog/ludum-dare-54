@@ -45,6 +45,7 @@
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\UIClock.cs" />
+     <Compile Include="Assets\WaveEndScreen.cs" />
      <None Include="Assets\ThirdParty\Ruccho\FangAutoTile\Readme.txt" />
     <Reference Include="UnityEngine">
         <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

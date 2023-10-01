@@ -44,7 +44,7 @@ public class FarmerController : MonoBehaviour
     }
 
     void AddWaterAtPosition(Vector2 pos) {
-        var farmTile = levelManager.GetFarmTile(Vector3Int.FloorToInt(pos));
+        var farmTile = levelManager.GetPlacedCrop(Vector3Int.FloorToInt(pos));
         if (farmTile == null || !farmTile.IsUsable || farmTile.Crop == null) return;
         farmTile.Crop.AddWater();
     }

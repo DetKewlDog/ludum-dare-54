@@ -6,7 +6,7 @@ public class UIClock : MonoBehaviour
     public Image clockFill;
     public RectTransform clockHand;
 
-    protected Vector3 eulerAngles = new Vector3(0, 180, 0);
+    protected Vector3 eulerAngles = Vector3.zero;
 
     protected float fill = 0;
     public float Fill {

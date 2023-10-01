@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e50c7a8abe9794e85c55d75c153388, type: 3}
   m_Name: Crop
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 1998735772204047069, guid: 3ff6e34b4a2c5db4c918d1d33eed28c8, type: 3}
-  - {fileID: 4488722804651983861, guid: 3ff6e34b4a2c5db4c918d1d33eed28c8, type: 3}
-  - {fileID: -3649760365684577334, guid: 3ff6e34b4a2c5db4c918d1d33eed28c8, type: 3}
-  - {fileID: -1493637790677746443, guid: 3ff6e34b4a2c5db4c918d1d33eed28c8, type: 3}
-  - {fileID: -6416742037857200102, guid: 3ff6e34b4a2c5db4c918d1d33eed28c8, type: 3}
+  tiles:
+  - {fileID: 11400000, guid: f203279d9bff533439d09ccd482271bc, type: 2}
+  - {fileID: 11400000, guid: 8c5a28a7a3e971441b2dac145826cbdd, type: 2}
+  - {fileID: 11400000, guid: 0d4cadc4a67a1ea45b5501fd9cd52db9, type: 2}
+  - {fileID: 11400000, guid: 6e61d833eb9595d4eae26bdc9c862029, type: 2}
+  - {fileID: 11400000, guid: cba9ea3f4a4fbd04797256b5e43e6c50, type: 2}
   growthChance: 0.1
   growthRate: 0.35
+  Price: 2

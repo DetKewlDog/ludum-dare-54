@@ -6,22 +6,17 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(fileName = "Crop", menuName = "ScriptableObjects/Crop")]
 public class Crop : ScriptableObject
 {
-    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private TileBase[] tiles;
     [SerializeField, Range(0, 1)] private float growthChance;
     [SerializeField, Range(0, 1)] private float growthRate;
+    [SerializeField] private int Price;
 
     private float age, moistureLevel;
-    private TileBase[] tiles;
     private Coroutine growCo;
     private Tilemap farmTilemap, cropTilemap;
     private Vector3Int pos;
 
     public void Initialize(Tilemap farmTilemap, Tilemap cropTilemap, Vector3Int pos) {
-        tiles = sprites.Select((sprite, i) => {
-            var tile = CreateInstance<Tile>();
-            tile.sprite = sprites[i];
-            return tile;
-        }).ToArray();
         this.farmTilemap = farmTilemap;
         this.cropTilemap = cropTilemap;
         this.pos = pos;
@@ -39,6 +34,8 @@ public class Crop : ScriptableObject
         UpdateMoisture();
         Destroy(this);
     }
+
+    public int GetPrice() => (int)(Price * age);
 
     private void UpdateCrop() => cropTilemap.SetTile(pos, tiles[(int)(age * (tiles.Length - 1))]);
     private void UpdateMoisture() => farmTilemap.SetTile(pos, LevelManager.Instance.GetFarmlandTile(moistureLevel));
