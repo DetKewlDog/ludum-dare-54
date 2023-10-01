@@ -24,7 +24,7 @@ public class GUIManager : MonoBehaviour
     public void ToggleClock(bool toggle) => clockContainer.SetActive(toggle);
 
     public void SetClock(float value, float maxValue) {
-        clockText.text = System.TimeSpan.FromSeconds(value).ToString(@"mm\:ss");
+        clockText.text = TimeSpan.FromSeconds(value).ToString(@"mm\:ss");
         clock.SetPercentage(value / maxValue);
     }
 

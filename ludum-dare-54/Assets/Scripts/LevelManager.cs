@@ -67,6 +67,7 @@ public class LevelManager : MonoBehaviour
         if (crop.Crop != null && crop.IsUsable) {
             gameManager.MoneyAmount += crop.Crop.GetPrice();
             crop.Crop.Destroy();
+            farmTilemap.SetTile(crop.position, farmlandTiles[0]);
         }
         tempPlacedCrops.Add(crop);
         yield return new WaitForSecondsRealtime(sellDuration);
@@ -91,6 +92,7 @@ public class LevelManager : MonoBehaviour
             farmTilemap.SetTile(tile.position, null);
         }
         placedCrops = newPlacedCrops;
+        placedCrops.ForEach(i => farmTilemap.SetTile(i.position, farmlandTiles[0]));
     }
 
     public void EnlargeFarm() {
@@ -104,7 +106,7 @@ public class LevelManager : MonoBehaviour
         ).Except(placedCrops.Select(x => x.position))
         .Select(x => new PlacedCrop(x)).ToList();
         placedCrops.AddRange(newPlacedCrops);
-        newPlacedCrops.ForEach(i => farmTilemap.SetTile(i.position, farmlandTiles[0]));
+        placedCrops.ForEach(i => farmTilemap.SetTile(i.position, farmlandTiles[0]));
     }
 }
 

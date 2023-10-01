@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0) return;
         float timeRemaining = timePerWave - Time.time % timePerWave;
         guiManager.SetClock(timeRemaining, timePerWave);
         if ((int)Time.time / timePerWave <= wavesCompleted) return;
@@ -45,8 +46,7 @@ public class GameManager : MonoBehaviour
     IEnumerator EndWaveCo() {
         Time.timeScale = 0;
         wavesCompleted++;
-        guiManager.SetClock(timePerWave, timePerWave);
-        guiManager.ToggleClock(false);
+        guiManager.SetClock(0, timePerWave);
         levelManager.SellAllCrops();
         yield return new WaitForSecondsRealtime(levelManager.sellDuration * levelManager.farmSize.magnitude);
         levelManager.ShrinkFarm();
@@ -55,8 +55,8 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator WaveEndCo() {
-        guiManager.ToggleClock(true);
         yield return new WaitForSecondsRealtime(5);
+        guiManager.SetClock(timePerWave, timePerWave);
         guiManager.ToggleWaveEndScreen(false, () => Time.timeScale = 1);
     }
 }
