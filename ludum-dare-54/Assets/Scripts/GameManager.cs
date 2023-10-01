@@ -3,19 +3,23 @@
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    LevelManager levelManager;
+    GUIManager guiManager;
     int resizeCount = 1;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Instance = this;
-        LevelManager.Instance.GenerateLevel();
+    void Awake() => Instance = this;
+
+    void Start() {
+        levelManager = LevelManager.Instance;
+        guiManager = GUIManager.Instance;
+        levelManager.GenerateLevel();
     }
 
     void Update()
     {
+        guiManager.SetClock(20 - Time.time % 20, 20);
         if (Time.time / 20 < resizeCount) return;
-        LevelManager.Instance.ShrinkFarm();
+        levelManager.ShrinkFarm();
         resizeCount++;
     }
 }

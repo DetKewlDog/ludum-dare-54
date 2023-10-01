@@ -12,10 +12,11 @@ public class CursorHandler : MonoBehaviour
     protected Vector3 mousePos;
     protected Camera mainCamera;
 
+    void Awake() => Instance = this;
+
     // Start is called before the first frame update
     void Start()
     {
-        Instance = this;
         mainCamera = Camera.main;
         Cursor.visible = false;
     }

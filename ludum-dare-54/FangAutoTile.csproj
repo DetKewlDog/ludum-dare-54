@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{2976f6d0-db37-f092-ac04-95884916dc81}</ProjectGuid>
+    <ProjectGuid>{e06a5fc3-be8a-1ddc-64cb-db8bcf60c355}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>FangAutoTile</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -36,16 +36,12 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\FarmerController.cs" />
-     <Compile Include="Assets\GUIManager.cs" />
-     <Compile Include="Assets\Scripts\CameraController.cs" />
-     <Compile Include="Assets\Scripts\Crop.cs" />
-     <Compile Include="Assets\Scripts\CursorHandler.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Scripts\LevelManager.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\UIClock.cs" />
-     <None Include="Assets\ThirdParty\Ruccho\FangAutoTile\Readme.txt" />
+     <Compile Include="Assets\ThirdParty\Ruccho\FangAutoTile\Scripts\Runtime\AssemblyInfo.cs" />
+     <Compile Include="Assets\ThirdParty\Ruccho\FangAutoTile\Scripts\Runtime\FangAutoTile.cs" />
+     <Compile Include="Assets\ThirdParty\Ruccho\FangAutoTile\Scripts\Runtime\FangAutoTilePacker.cs" />
+     <Compile Include="Assets\ThirdParty\Ruccho\FangAutoTile\Scripts\Runtime\Legacy\FangAutoTile.cs" />
+     <Compile Include="Assets\ThirdParty\Ruccho\FangAutoTile\Scripts\Runtime\Legacy\FangAutoTilePattern.cs" />
+     <None Include="Assets\ThirdParty\Ruccho\FangAutoTile\Scripts\Runtime\FangAutoTile.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -228,6 +224,30 @@
     </Reference>
     <Reference Include="UnityEditor">
         <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.VR">
+        <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+        <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+        <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WebGL.Extensions">
+        <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.OSXStandalone.Extensions">
+        <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.LinuxStandalone.Extensions">
+        <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+        <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions">
+        <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
         <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -580,76 +600,14 @@
     <Reference Include="System.Xml.Serialization">
         <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Timeline.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Toolchain.Win-x86_64-Linux-x86_64">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.Toolchain.Win-x86_64-Linux-x86_64.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+    <Reference Include="UnityEditor.UI">
+        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
         <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Timeline">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.CollabProxy.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Rider.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Sysroot.Linux_x86_64">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.Sysroot.Linux_x86_64.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.SysrootPackage.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.SysrootPackage.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UI">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.PixelPerfect.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.PixelPerfect">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.001">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Common.Runtime">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Common.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEditorBridge.001">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="FangAutoTile.Editor.csproj">
-      <Project>{188a69eb-22a2-4d2d-1d87-d8c8f1d95291}</Project>
-      <Name>FangAutoTile.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="FangAutoTile.csproj">
-      <Project>{e06a5fc3-be8a-1ddc-64cb-db8bcf60c355}</Project>
-      <Name>FangAutoTile</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

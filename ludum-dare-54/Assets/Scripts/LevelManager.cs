@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
 
     [Space]
     public TileBase grassTile;
-    public Sprite[] farmlandSprites;
+    public TileBase[] farmlandTiles;
 
     [Space]
     public Tilemap farmTilemap;
@@ -20,19 +20,13 @@ public class LevelManager : MonoBehaviour
 
     [Space]
     public List<FarmTile> farmTiles;
-
-    private Tile[] farmlandTiles;
     private List<Vector3Int> originalFarmPositions;
 
     private Vector2 cornerBottomLeft, cornerTopRight;
 
+    void Awake() => Instance = this;
+
     void Start() {
-        Instance = this;
-        farmlandTiles = farmlandSprites.Select((sprite, i) => {
-            var tile = ScriptableObject.CreateInstance<Tile>();
-            tile.sprite = farmlandSprites[i];
-            return tile;
-        }).ToArray();
         cornerBottomLeft = -farmSize / 2;
         cornerTopRight = farmSize / 2;
     }

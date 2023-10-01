@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{6938caa4-e3b6-76d2-c915-98becc4856c4}</ProjectGuid>
+    <ProjectGuid>{188a69eb-22a2-4d2d-1d87-d8c8f1d95291}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <AssemblyName>FangAutoTile.Editor</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -36,8 +36,9 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Editor\CmdWindow.cs" />
-     <Compile Include="Assets\Scripts\Editor\FullscreenGameView.cs" />
+     <Compile Include="Assets\ThirdParty\Ruccho\FangAutoTile\Scripts\Editor\FangAutoTileEditor.cs" />
+     <Compile Include="Assets\ThirdParty\Ruccho\FangAutoTile\Scripts\Editor\FangAutoTilePackerEditor.cs" />
+     <None Include="Assets\ThirdParty\Ruccho\FangAutoTile\Scripts\Editor\FangAutoTile.Editor.asmdef" />
     <Reference Include="UnityEngine">
         <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -608,77 +609,23 @@
     <Reference Include="Boo.Lang">
         <HintPath>E:/INSTALLATIONS/Unity Editors/2019.4.24f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.UI">
+        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.TestRunner">
         <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
         <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Timeline.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Toolchain.Win-x86_64-Linux-x86_64">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.Toolchain.Win-x86_64-Linux-x86_64.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Timeline">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.CollabProxy.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Rider.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Sysroot.Linux_x86_64">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.Sysroot.Linux_x86_64.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.SysrootPackage.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.SysrootPackage.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UI">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.PixelPerfect.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.PixelPerfect">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.001">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Common.Runtime">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Common.Editor">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEditorBridge.001">
-        <HintPath>C:/Unity/ludum-dare-54/ludum-dare-54/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{2976f6d0-db37-f092-ac04-95884916dc81}</Project>
-      <Name>Assembly-CSharp</Name>
+    <ProjectReference Include="FangAutoTile.csproj">
+      <Project>{e06a5fc3-be8a-1ddc-64cb-db8bcf60c355}</Project>
+      <Name>FangAutoTile</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
