@@ -3,9 +3,15 @@
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
+    [Header("Settings")]
+    public int timePerWave = 30;
+
+    [Header("Info")]
+    public int wavesCompleted = 0;
+
     LevelManager levelManager;
     GUIManager guiManager;
-    int resizeCount = 1;
 
     void Awake() => Instance = this;
 
@@ -17,9 +23,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        guiManager.SetClock(20 - Time.time % 20, 20);
-        if (Time.time / 20 < resizeCount) return;
+        float timeRemaining = timePerWave - Time.time % timePerWave;
+        guiManager.SetClock(timeRemaining, timePerWave);
+        if ((int)Time.time / timePerWave <= wavesCompleted) return;
         levelManager.ShrinkFarm();
-        resizeCount++;
+        wavesCompleted++;
     }
 }

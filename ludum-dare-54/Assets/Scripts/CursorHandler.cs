@@ -7,6 +7,7 @@ public class CursorHandler : MonoBehaviour
     public static CursorHandler Instance;
     public Vector2 position;
 
+    public Transform particlesT;
     public ParticleSystem waterParticles, seedsParticles;
 
     protected Vector3 mousePos;
@@ -15,19 +16,16 @@ public class CursorHandler : MonoBehaviour
     void Awake() => Instance = this;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         mainCamera = Camera.main;
         Cursor.visible = false;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        mousePos = Input.mousePosition;
+    void Update() {
+        transform.position = mousePos = Input.mousePosition;
         mousePos.z = 10;
-        position = mainCamera.ScreenToWorldPoint(mousePos);
-        transform.position = position;
+        particlesT.position = position = mainCamera.ScreenToWorldPoint(mousePos);
     }
 
     void OnApplicationFocus(bool hasFocus) {
