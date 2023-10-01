@@ -21,7 +21,7 @@ public class GUIManager : MonoBehaviour
 
     void Awake() => Instance = this;
 
-    public void ToggleClock(bool toggle) => clockContainer.SetActive(toggle);
+    public void ToggleAlarmClock(bool value) => clock.ToggleAlarmClock(value);
 
     public void SetClock(float value, float maxValue) {
         clockText.text = TimeSpan.FromSeconds(value).ToString(@"mm\:ss");

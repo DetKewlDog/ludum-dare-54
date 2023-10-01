@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 using System.Linq;
 using System.Collections;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -12,12 +13,13 @@ public class LevelManager : MonoBehaviour
     public Vector2Int farmSize = new Vector2Int(20, 10);
 
     [Space]
-    public TileBase grassTile;
+    public TileBase fenceTile;
     public TileBase[] farmlandTiles;
 
     [Space]
+    public SpriteRenderer ground;
     public Tilemap farmTilemap;
-    public Tilemap groundTilemap;
+    public Tilemap fenceTilemap;
     public Tilemap cropTilemap;
 
     [Space]
@@ -30,6 +32,7 @@ public class LevelManager : MonoBehaviour
     private Vector2 cornerBottomLeft, cornerTopRight;
     private List<Vector3Int> originalFarmPositions;
     private HashSet<PlacedCrop> tempPlacedCrops;
+    private static GameObject puffParticles;
 
     void Awake() => Instance = this;
 
@@ -37,6 +40,7 @@ public class LevelManager : MonoBehaviour
         gameManager = GameManager.Instance;
         cornerBottomLeft = -farmSize / 2;
         cornerTopRight = farmSize / 2;
+        puffParticles = Resources.Load<GameObject>("PuffParticles");
     }
 
     public PlacedCrop GetPlacedCrop(Vector3Int position) {
@@ -49,7 +53,9 @@ public class LevelManager : MonoBehaviour
     }
 
     public void GenerateLevel() {
-        groundTilemap.FillWithTile(grassTile, -farmSize / 2 - Vector2Int.one * 5, farmSize / 2 + Vector2Int.one * 5);
+        Vector2Int v = new Vector2Int(2, 1);
+        ground.size = farmSize * 3;
+        fenceTilemap.FillWithTile(fenceTile, -farmSize / 2 - Vector2Int.one * 3, farmSize / 2 + Vector2Int.one * 3, true);
         originalFarmPositions = farmTilemap.FillWithTile(farmlandTiles[0], -farmSize / 2, farmSize / 2);
         placedCrops = originalFarmPositions.Select(x => new PlacedCrop(x)).ToList();
     }
@@ -90,6 +96,7 @@ public class LevelManager : MonoBehaviour
         foreach (var tile in tilesToRemove) {
             tile.IsUsable = false;
             farmTilemap.SetTile(tile.position, null);
+            Instantiate(puffParticles, tile.position, Quaternion.identity);
         }
         placedCrops = newPlacedCrops;
         placedCrops.ForEach(i => farmTilemap.SetTile(i.position, farmlandTiles[0]));
@@ -134,11 +141,16 @@ public class PlacedCrop {
 }
 
 public static class TilemapExtensions {
-    public static List<Vector3Int> FillWithTile(this Tilemap tilemap, TileBase tile, Vector2Int bottomLeft, Vector2Int topRight) {
+    public static List<Vector3Int> FillWithTile(this Tilemap tilemap, TileBase tile, Vector2Int bottomLeft, Vector2Int topRight, bool outline = false) {
         Vector3Int pos = Vector3Int.zero;
         List<Vector3Int> positions = new List<Vector3Int>();
         for (int x = bottomLeft.x; x <= topRight.x; x++) {
             for (int y = bottomLeft.y; y <= topRight.y; y++) {
+                if (outline
+                    && x != bottomLeft.x
+                    && x != topRight.x
+                    && y != bottomLeft.y
+                    && y != topRight.y) continue;
                 pos.x = x;
                 pos.y = y;
                 positions.Add(pos);

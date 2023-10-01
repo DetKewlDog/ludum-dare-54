@@ -15,11 +15,13 @@ public class Crop : ScriptableObject
     private Coroutine growCo;
     private Tilemap farmTilemap, cropTilemap;
     private Vector3Int pos;
+    private static GameObject puffParticles;
 
     public void Initialize(Tilemap farmTilemap, Tilemap cropTilemap, Vector3Int pos) {
         this.farmTilemap = farmTilemap;
         this.cropTilemap = cropTilemap;
         this.pos = pos;
+        puffParticles = puffParticles ?? Resources.Load<GameObject>("PuffParticles");
         growCo = LevelManager.Instance.StartCoroutine(GrowCo());
     }
 
@@ -31,6 +33,7 @@ public class Crop : ScriptableObject
     public void Destroy() {
         LevelManager.Instance.StopCoroutine(growCo);
         cropTilemap.SetTile(pos, null);
+        Instantiate(puffParticles, pos, Quaternion.identity);
         UpdateMoisture();
         Destroy(this);
     }

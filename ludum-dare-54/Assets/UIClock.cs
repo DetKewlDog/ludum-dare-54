@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class UIClock : MonoBehaviour
 {
+    public GameObject clock, alarmClock;
     public Image clockFill;
     public RectTransform clockHand;
 
@@ -22,5 +23,10 @@ public class UIClock : MonoBehaviour
         clockFill.fillAmount = fill = value;
         eulerAngles.z = value * 360f;
         clockHand.eulerAngles = eulerAngles;
+    }
+
+    public void ToggleAlarmClock(bool value) {
+        clock.SetActive(!value);
+        alarmClock.SetActive(value);
     }
 }

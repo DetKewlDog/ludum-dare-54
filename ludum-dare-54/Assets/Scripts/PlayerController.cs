@@ -5,11 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float Speed;
+    public static PlayerController Instance;
 
     protected Vector2 movement;
     protected Rigidbody2D rb;
     protected SpriteRenderer spriteRen;
     protected Animator animator;
+
+    void Awake() => Instance = this;
 
     // Start is called before the first frame update
     void Start()

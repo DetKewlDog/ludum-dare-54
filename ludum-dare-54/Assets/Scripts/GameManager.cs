@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     LevelManager levelManager;
     GUIManager guiManager;
+    CameraController cameraController;
+    PlayerController player;
 
     void Awake() => Instance = this;
 
@@ -30,8 +32,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         levelManager = LevelManager.Instance;
         guiManager = GUIManager.Instance;
+        cameraController = CameraController.Instance;
+        player = PlayerController.Instance;
         levelManager.GenerateLevel();
-        guiManager.ToggleWaveEndScreen(false, () => Time.timeScale = 1);
+        guiManager.ToggleWaveEndScreen(false, () => {
+            Time.timeScale = 1;
+            cameraController.target = player.transform;
+        });
     }
 
     void Update()
@@ -46,17 +53,28 @@ public class GameManager : MonoBehaviour
     IEnumerator EndWaveCo() {
         Time.timeScale = 0;
         wavesCompleted++;
+        cameraController.target = transform;
         guiManager.SetClock(0, timePerWave);
+        guiManager.ToggleAlarmClock(true);
         levelManager.SellAllCrops();
         yield return new WaitForSecondsRealtime(levelManager.sellDuration * levelManager.farmSize.magnitude);
         levelManager.ShrinkFarm();
         yield return new WaitForSecondsRealtime(1.5f);
-        guiManager.ToggleWaveEndScreen(true, () => StartCoroutine(WaveEndCo()));
+        guiManager.ToggleWaveEndScreen(true, () => { });
     }
 
-    IEnumerator WaveEndCo() {
-        yield return new WaitForSecondsRealtime(5);
+    public void StartNewWave() {
+        guiManager.ToggleAlarmClock(false);
         guiManager.SetClock(timePerWave, timePerWave);
-        guiManager.ToggleWaveEndScreen(false, () => Time.timeScale = 1);
+        guiManager.ToggleWaveEndScreen(false, () => {
+            Time.timeScale = 1;
+            cameraController.target = player.transform;
+        });
+    }
+
+    public void BuyLand() {
+        if (MoneyAmount < 200) return;
+        MoneyAmount -= 200;
+        levelManager.EnlargeFarm();
     }
 }

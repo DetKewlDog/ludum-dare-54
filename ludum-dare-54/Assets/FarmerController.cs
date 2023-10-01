@@ -20,6 +20,11 @@ public class FarmerController : MonoBehaviour
     void Update()
     {
         position = cursorHandler.position;
+        if (Time.timeScale == 0) {
+            cursorHandler.seedsParticles.Stop();
+            cursorHandler.waterParticles.Stop();
+            return;
+        }
         HandleInput();
     }
 
