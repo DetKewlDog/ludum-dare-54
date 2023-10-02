@@ -3,14 +3,13 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Linq;
 using System.Collections;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
 
-    public Vector2Int farmSize = new Vector2Int(20, 10);
+    [Tooltip("Farm size has to be not divisible by 2, since (0, 0) is also included in the farm")]
+    public Vector2Int farmSize = new Vector2Int(21, 11);
 
     [Space]
     public TileBase fenceTile;
@@ -29,7 +28,7 @@ public class LevelManager : MonoBehaviour
     public float sellDuration = 0.1f;
 
     private GameManager gameManager;
-    private Vector2 cornerBottomLeft, cornerTopRight;
+    private Vector2Int cornerBottomLeft, cornerTopRight;
     private List<Vector3Int> originalFarmPositions;
     private HashSet<PlacedCrop> tempPlacedCrops;
     private static GameObject puffParticles;
@@ -43,9 +42,7 @@ public class LevelManager : MonoBehaviour
         puffParticles = Resources.Load<GameObject>("PuffParticles");
     }
 
-    public PlacedCrop GetPlacedCrop(Vector3Int position) {
-        return placedCrops.Where(x => x.position == position).FirstOrDefault();
-    }
+    public PlacedCrop GetPlacedCrop(Vector3Int position) => placedCrops.Where(x => x.position == position).FirstOrDefault();
     public bool SetCrop(Crop crop, Vector3Int position) {
         var farmTile = GetPlacedCrop(position);
         if (farmTile == null || !farmTile.IsUsable || farmTile.Crop != null) return false;
@@ -54,10 +51,9 @@ public class LevelManager : MonoBehaviour
     }
 
     public void GenerateLevel() {
-        Vector2Int v = new Vector2Int(2, 1);
-        ground.size = farmSize * 3;
-        fenceTilemap.FillWithTile(fenceTile, -farmSize / 2 - Vector2Int.one * 3, farmSize / 2 + Vector2Int.one * 3, true);
-        originalFarmPositions = farmTilemap.FillWithTile(farmlandTiles[0], -farmSize / 2, farmSize / 2);
+        ground.size = farmSize + new Vector2Int(40, 20);
+        UpdateFence();
+        originalFarmPositions = farmTilemap.FillWithTile(farmlandTiles[0], cornerBottomLeft, cornerTopRight);
         placedCrops = originalFarmPositions.Select(x => new PlacedCrop(x)).ToList();
     }
 
@@ -85,16 +81,15 @@ public class LevelManager : MonoBehaviour
     }
 
     public void ShrinkFarm() {
-        cornerBottomLeft += Vector2.one;
-        cornerTopRight -= Vector2.one;
+        cornerBottomLeft += Vector2Int.one;
+        cornerTopRight -= Vector2Int.one;
         var newPlacedCrops = placedCrops.Where(i =>
             i.position.x >= cornerBottomLeft.x
             && i.position.x <= cornerTopRight.x
             && i.position.y >= cornerBottomLeft.y
             && i.position.y <= cornerTopRight.y
         ).ToList();
-        var tilesToRemove = placedCrops.Except(newPlacedCrops);
-        foreach (var tile in tilesToRemove) {
+        foreach (var tile in placedCrops.Except(newPlacedCrops)) {
             tile.IsUsable = false;
             farmTilemap.SetTile(tile.position, null);
             Instantiate(puffParticles, tile.position, Quaternion.identity);
@@ -102,12 +97,12 @@ public class LevelManager : MonoBehaviour
         placedCrops = newPlacedCrops;
         placedCrops.ForEach(i => farmTilemap.SetTile(i.position, farmlandTiles[0]));
 
-        farmSize = Vector2Int.FloorToInt(cornerTopRight - cornerBottomLeft + Vector2.one);
+        UpdateFarmSize();
     }
 
     public void EnlargeFarm() {
-        cornerBottomLeft -= Vector2.one;
-        cornerTopRight += Vector2.one;
+        cornerBottomLeft -= Vector2Int.one;
+        cornerTopRight += Vector2Int.one;
         var newPlacedCrops = originalFarmPositions.Where(i =>
             i.x >= cornerBottomLeft.x
             && i.x <= cornerTopRight.x
@@ -118,7 +113,14 @@ public class LevelManager : MonoBehaviour
         placedCrops.AddRange(newPlacedCrops);
         placedCrops.ForEach(i => farmTilemap.SetTile(i.position, farmlandTiles[0]));
 
-        farmSize = Vector2Int.FloorToInt(cornerTopRight - cornerBottomLeft);
+        UpdateFarmSize();
+    }
+
+    public void UpdateFarmSize() => farmSize = Vector2Int.FloorToInt(cornerTopRight - cornerBottomLeft + Vector2.one);
+
+    public void UpdateFence() {
+        fenceTilemap.ClearAllTiles();
+        fenceTilemap.FillWithTile(fenceTile, cornerBottomLeft - Vector2Int.one * 3, cornerTopRight + Vector2Int.one * 3, true);
     }
 }
 

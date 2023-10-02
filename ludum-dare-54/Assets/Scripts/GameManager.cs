@@ -69,18 +69,28 @@ public class GameManager : MonoBehaviour
     IEnumerator EndWaveCo() {
         Time.timeScale = 0;
         wavesCompleted++;
+
+        player.ResetAnimator();
         cameraController.target = transform;
+
         guiManager.SetClock(0, timePerWave);
         guiManager.ToggleAlarmClock(true);
         levelManager.SellAllCrops();
+
         yield return new WaitForSecondsRealtime(levelManager.sellDuration * levelManager.farmSize.magnitude);
+
         levelManager.ShrinkFarm();
         guiManager.SetLand(levelManager.farmSize);
+
         yield return new WaitForSecondsRealtime(1.5f);
+
         guiManager.ToggleWaveEndScreen(true, () => { });
     }
 
     public void StartNewWave() {
+        player.transform.position = Vector2.zero;
+        levelManager.UpdateFence();
+
         guiManager.ToggleAlarmClock(false);
         guiManager.SetClock(timePerWave, timePerWave);
         guiManager.ToggleWaveEndScreen(false, () => {

@@ -14,17 +14,13 @@ public class PlayerController : MonoBehaviour
 
     void Awake() => Instance = this;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         rb = GetComponent<Rigidbody2D>();
         spriteRen = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void FixedUpdate() {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
@@ -32,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
         spriteRen.flipX = movement.x == 0 ? spriteRen.flipX : movement.x < 0;
 
-        animator.SetBool("moving", movement != Vector2.zero);
+        animator.SetBool("moving", movement != Vector2.zero && Time.timeScale != 0);
     }
+
+    public void ResetAnimator() => animator.SetBool("moving", false);
 }
