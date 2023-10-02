@@ -11,6 +11,8 @@ public class FarmerController : MonoBehaviour
     Vector2 position;
     Crop crop;
 
+    Vector2Int lastPosition = Vector2Int.zero;
+
     void Start() {
         cursorHandler = CursorHandler.Instance;
         levelManager = LevelManager.Instance;
@@ -28,17 +30,24 @@ public class FarmerController : MonoBehaviour
             return;
         }
         HandleInput();
+        lastPosition = Vector2Int.FloorToInt(position);
     }
 
     void HandleInput() {
         if (Input.GetKeyDown("mouse 0")) cursorHandler.seedsParticles.Play();
-        if (Input.GetKeyDown("mouse 1")) cursorHandler.waterParticles.Play();
+        if (Input.GetKeyDown("mouse 1")) {
+            cursorHandler.waterParticles.Play();
+            SoundManager.Play("water");
+        }
 
         if (Input.GetKeyUp("mouse 0")) cursorHandler.seedsParticles.Stop();
         if (Input.GetKeyUp("mouse 1")) cursorHandler.waterParticles.Stop();
 
         if (Input.GetKey("mouse 0") && gameManager.CropAmount > 0) {
-            if (levelManager.SetCrop(Instantiate(crop), Vector3Int.FloorToInt(position))) gameManager.CropAmount--;
+            if (levelManager.SetCrop(Instantiate(crop), Vector3Int.FloorToInt(position))) {
+                gameManager.CropAmount--;
+                if (lastPosition != position) SoundManager.Play("plant");
+            }
         }
 
         if (Input.GetKey("mouse 1")) {

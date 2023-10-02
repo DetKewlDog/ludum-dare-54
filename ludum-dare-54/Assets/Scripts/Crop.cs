@@ -35,6 +35,7 @@ public class Crop : ScriptableObject
         cropTilemap.SetTile(pos, null);
         Instantiate(puffParticles, pos, Quaternion.identity);
         UpdateMoisture();
+        SoundManager.Play("destroy");
         Destroy(this);
     }
 

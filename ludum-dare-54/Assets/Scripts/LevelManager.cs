@@ -103,6 +103,7 @@ public class LevelManager : MonoBehaviour
         placedCrops.ForEach(i => farmTilemap.SetTile(i.position, farmlandTiles[0]));
 
         UpdateFarmSize();
+        SoundManager.Play("destroy", "plant");
     }
 
     public void EnlargeFarm() {

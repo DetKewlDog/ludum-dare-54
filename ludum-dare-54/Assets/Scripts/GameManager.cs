@@ -79,6 +79,8 @@ public class GameManager : MonoBehaviour
 
         guiManager.SetClock(0, timePerRound);
         guiManager.ToggleAlarmClock(true);
+
+        yield return new WaitForSecondsRealtime(1.5f);
         levelManager.SellAllCrops();
 
         yield return new WaitForSecondsRealtime(levelManager.sellDuration * levelManager.farmSize.magnitude);
@@ -88,6 +90,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1.5f);
 
+        guiManager.ToggleClock(false);
         guiManager.ToggleRoundEndScreen(true, () => { }, levelManager.placedCrops.Count == 0);
     }
 
@@ -100,6 +103,8 @@ public class GameManager : MonoBehaviour
 
         guiManager.ToggleAlarmClock(false);
         guiManager.SetClock(timePerRound, timePerRound);
+        guiManager.ToggleClock(true);
+
         guiManager.ToggleRoundEndScreen(false, () => {
             Time.timeScale = 1;
             cameraController.target = player.transform;
@@ -111,11 +116,13 @@ public class GameManager : MonoBehaviour
         MoneyAmount -= landPrice;
         levelManager.EnlargeFarm();
         guiManager.SetLand(levelManager.farmSize);
+        SoundManager.Play("buy");
     }
 
     public void BuyCrop() {
         if (MoneyAmount < cropPrice) return;
         MoneyAmount -= cropPrice;
         CropAmount += cropsSold;
+        SoundManager.Play("buy");
     }
 }

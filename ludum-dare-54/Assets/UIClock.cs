@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UIClock : MonoBehaviour
@@ -28,5 +29,14 @@ public class UIClock : MonoBehaviour
     public void ToggleAlarmClock(bool value) {
         clock.SetActive(!value);
         alarmClock.SetActive(value);
+        if (value) StartCoroutine(AlarmSoundCo());
+    }
+
+    IEnumerator AlarmSoundCo() {
+        var waitForSeconds = new WaitForSecondsRealtime(0.2f);
+        for (int i = 0; i < 3; i++) {
+            SoundManager.Play("alarm");
+            yield return waitForSeconds;
+        }
     }
 }
