@@ -8,8 +8,10 @@ public class GUIManager : MonoBehaviour
 {
     public static GUIManager Instance;
 
-    [Header("Money")]
+    [Header("HUD")]
     public Text moneyText;
+    public Text cropText;
+    public Text landText;
 
     [Header("Clock")]
     public GameObject clockContainer;
@@ -31,4 +33,6 @@ public class GUIManager : MonoBehaviour
     public void ToggleWaveEndScreen(bool toggle, System.Action callback) => waveEndScreen.ToggleHider(toggle, callback);
 
     internal void SetMoney(int value) => moneyText.text = value.ToString();
+    internal void SetCrop(int value) => cropText.text = value.ToString();
+    internal void SetLand(Vector2Int size) => landText.text = $"{size.x}x{size.y}";
 }

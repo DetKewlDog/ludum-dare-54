@@ -46,10 +46,11 @@ public class LevelManager : MonoBehaviour
     public PlacedCrop GetPlacedCrop(Vector3Int position) {
         return placedCrops.Where(x => x.position == position).FirstOrDefault();
     }
-    public void SetCrop(Crop crop, Vector3Int position) {
+    public bool SetCrop(Crop crop, Vector3Int position) {
         var farmTile = GetPlacedCrop(position);
-        if (farmTile == null || !farmTile.IsUsable || farmTile.Crop != null) return;
+        if (farmTile == null || !farmTile.IsUsable || farmTile.Crop != null) return false;
         farmTile.Crop = crop;
+        return true;
     }
 
     public void GenerateLevel() {
@@ -100,6 +101,8 @@ public class LevelManager : MonoBehaviour
         }
         placedCrops = newPlacedCrops;
         placedCrops.ForEach(i => farmTilemap.SetTile(i.position, farmlandTiles[0]));
+
+        farmSize = Vector2Int.FloorToInt(cornerTopRight - cornerBottomLeft + Vector2.one);
     }
 
     public void EnlargeFarm() {
@@ -114,6 +117,8 @@ public class LevelManager : MonoBehaviour
         .Select(x => new PlacedCrop(x)).ToList();
         placedCrops.AddRange(newPlacedCrops);
         placedCrops.ForEach(i => farmTilemap.SetTile(i.position, farmlandTiles[0]));
+
+        farmSize = Vector2Int.FloorToInt(cornerTopRight - cornerBottomLeft);
     }
 }
 

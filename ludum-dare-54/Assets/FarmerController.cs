@@ -7,12 +7,14 @@ public class FarmerController : MonoBehaviour
 {
     CursorHandler cursorHandler;
     LevelManager levelManager;
+    GameManager gameManager;
     Vector2 position;
     Crop crop;
 
     void Start() {
         cursorHandler = CursorHandler.Instance;
         levelManager = LevelManager.Instance;
+        gameManager = GameManager.Instance;
         crop = Resources.Load<Crop>("Crops/Crop");
     }
 
@@ -35,8 +37,8 @@ public class FarmerController : MonoBehaviour
         if (Input.GetKeyUp("mouse 0")) cursorHandler.seedsParticles.Stop();
         if (Input.GetKeyUp("mouse 1")) cursorHandler.waterParticles.Stop();
 
-        if (Input.GetKey("mouse 0")) {
-            levelManager.SetCrop(Instantiate(crop), Vector3Int.FloorToInt(position));
+        if (Input.GetKey("mouse 0") && gameManager.CropAmount > 0) {
+            if (levelManager.SetCrop(Instantiate(crop), Vector3Int.FloorToInt(position))) gameManager.CropAmount--;
         }
 
         if (Input.GetKey("mouse 1")) {

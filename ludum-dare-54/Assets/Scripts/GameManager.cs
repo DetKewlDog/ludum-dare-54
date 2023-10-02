@@ -7,9 +7,11 @@ public class GameManager : MonoBehaviour
 
     [Header("Settings")]
     public int timePerWave = 30;
+    public int landPrice = 100;
+    public int cropPrice = 50;
+    public int cropsSold = 100;
 
-    [Header("Info")]
-    public int wavesCompleted = 0;
+    [Header("Start Values")]
 
     [SerializeField] private int moneyAmount = 0;
     public int MoneyAmount {
@@ -19,7 +21,16 @@ public class GameManager : MonoBehaviour
             guiManager?.SetMoney(value);
         }
     }
+    [SerializeField] private int cropAmount = 100;
+    public int CropAmount {
+        get => cropAmount;
+        set {
+            cropAmount = value;
+            guiManager?.SetCrop(value);
+        }
+    }
 
+    private int wavesCompleted = 0;
 
     LevelManager levelManager;
     GUIManager guiManager;
@@ -34,7 +45,12 @@ public class GameManager : MonoBehaviour
         guiManager = GUIManager.Instance;
         cameraController = CameraController.Instance;
         player = PlayerController.Instance;
+
+        MoneyAmount = moneyAmount;
+        CropAmount = cropAmount;
+
         levelManager.GenerateLevel();
+        guiManager.SetLand(levelManager.farmSize);
         guiManager.ToggleWaveEndScreen(false, () => {
             Time.timeScale = 1;
             cameraController.target = player.transform;
@@ -59,6 +75,7 @@ public class GameManager : MonoBehaviour
         levelManager.SellAllCrops();
         yield return new WaitForSecondsRealtime(levelManager.sellDuration * levelManager.farmSize.magnitude);
         levelManager.ShrinkFarm();
+        guiManager.SetLand(levelManager.farmSize);
         yield return new WaitForSecondsRealtime(1.5f);
         guiManager.ToggleWaveEndScreen(true, () => { });
     }
@@ -73,8 +90,15 @@ public class GameManager : MonoBehaviour
     }
 
     public void BuyLand() {
-        if (MoneyAmount < 200) return;
-        MoneyAmount -= 200;
+        if (MoneyAmount < landPrice) return;
+        MoneyAmount -= landPrice;
         levelManager.EnlargeFarm();
+        guiManager.SetLand(levelManager.farmSize);
+    }
+
+    public void BuyCrop() {
+        if (MoneyAmount < cropPrice) return;
+        MoneyAmount -= cropPrice;
+        CropAmount += cropsSold;
     }
 }
