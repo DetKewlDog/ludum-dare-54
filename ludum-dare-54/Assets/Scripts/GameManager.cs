@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [Header("Settings")]
-    public int timePerWave = 30;
+    public int timePerRound = 30;
     public int landPrice = 100;
     public int cropPrice = 50;
     public int cropsSold = 100;
@@ -30,10 +30,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private int wavesCompleted = 0;
+    private int roundsCompleted = 0;
 
     LevelManager levelManager;
     GUIManager guiManager;
+    StatsManager statsManager;
     CameraController cameraController;
     PlayerController player;
 
@@ -43,15 +44,18 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         levelManager = LevelManager.Instance;
         guiManager = GUIManager.Instance;
+        statsManager = StatsManager.Instance;
         cameraController = CameraController.Instance;
         player = PlayerController.Instance;
 
         MoneyAmount = moneyAmount;
         CropAmount = cropAmount;
 
+        statsManager.RoundsCompleted = statsManager.TotalEarnings = statsManager.CropsPlanted = 0;
+
         levelManager.GenerateLevel();
         guiManager.SetLand(levelManager.farmSize);
-        guiManager.ToggleWaveEndScreen(false, () => {
+        guiManager.ToggleRoundEndScreen(false, () => {
             Time.timeScale = 1;
             cameraController.target = player.transform;
         });
@@ -60,20 +64,20 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (Time.timeScale == 0) return;
-        float timeRemaining = timePerWave - Time.time % timePerWave;
-        guiManager.SetClock(timeRemaining, timePerWave);
-        if ((int)Time.time / timePerWave <= wavesCompleted) return;
-        StartCoroutine(EndWaveCo());
+        float timeRemaining = timePerRound - Time.time % timePerRound;
+        guiManager.SetClock(timeRemaining, timePerRound);
+        if ((int)Time.time / timePerRound <= roundsCompleted) return;
+        StartCoroutine(EndRoundCo());
     }
 
-    IEnumerator EndWaveCo() {
+    IEnumerator EndRoundCo() {
         Time.timeScale = 0;
-        wavesCompleted++;
+        statsManager.TotalPlayTime = Time.unscaledTime;
 
         player.ResetAnimator();
         cameraController.target = transform;
 
-        guiManager.SetClock(0, timePerWave);
+        guiManager.SetClock(0, timePerRound);
         guiManager.ToggleAlarmClock(true);
         levelManager.SellAllCrops();
 
@@ -84,16 +88,19 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1.5f);
 
-        guiManager.ToggleWaveEndScreen(true, () => { });
+        guiManager.ToggleRoundEndScreen(true, () => { }, levelManager.placedCrops.Count == 0);
     }
 
-    public void StartNewWave() {
+    public void StartNewRound() {
+        roundsCompleted++;
+        statsManager.RoundsCompleted++;
+
         player.transform.position = Vector2.zero;
         levelManager.UpdateFence();
 
         guiManager.ToggleAlarmClock(false);
-        guiManager.SetClock(timePerWave, timePerWave);
-        guiManager.ToggleWaveEndScreen(false, () => {
+        guiManager.SetClock(timePerRound, timePerRound);
+        guiManager.ToggleRoundEndScreen(false, () => {
             Time.timeScale = 1;
             cameraController.target = player.transform;
         });

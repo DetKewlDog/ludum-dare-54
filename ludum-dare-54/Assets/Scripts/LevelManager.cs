@@ -28,6 +28,7 @@ public class LevelManager : MonoBehaviour
     public float sellDuration = 0.1f;
 
     private GameManager gameManager;
+    private StatsManager statsManager;
     private Vector2Int cornerBottomLeft, cornerTopRight;
     private List<Vector3Int> originalFarmPositions;
     private HashSet<PlacedCrop> tempPlacedCrops;
@@ -37,6 +38,7 @@ public class LevelManager : MonoBehaviour
 
     void Start() {
         gameManager = GameManager.Instance;
+        statsManager = StatsManager.Instance;
         cornerBottomLeft = -farmSize / 2;
         cornerTopRight = farmSize / 2;
         puffParticles = Resources.Load<GameObject>("PuffParticles");
@@ -47,10 +49,12 @@ public class LevelManager : MonoBehaviour
         var farmTile = GetPlacedCrop(position);
         if (farmTile == null || !farmTile.IsUsable || farmTile.Crop != null) return false;
         farmTile.Crop = crop;
+        statsManager.CropsPlanted++;
         return true;
     }
 
     public void GenerateLevel() {
+        statsManager = statsManager ?? StatsManager.Instance;
         ground.size = farmSize + new Vector2Int(40, 20);
         UpdateFence();
         originalFarmPositions = farmTilemap.FillWithTile(farmlandTiles[0], cornerBottomLeft, cornerTopRight);
@@ -69,6 +73,7 @@ public class LevelManager : MonoBehaviour
         if (crop == null || tempPlacedCrops.Contains(crop)) yield break;
         if (crop.Crop != null && crop.IsUsable) {
             gameManager.MoneyAmount += crop.Crop.GetPrice();
+            statsManager.TotalEarnings += crop.Crop.GetPrice();
             crop.Crop.Destroy();
             farmTilemap.SetTile(crop.position, farmlandTiles[0]);
         }

@@ -2,11 +2,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WaveEndScreen : MonoBehaviour
+public class RoundEndScreen : MonoBehaviour
 {
     public RectTransform Hider;
     public float toggleDuration = 1;
-    public GameObject waveEndButtons;
+    public GameObject roundEndButtons, gameOverScreen;
     public GameObject buyLandButton, buyCropButton;
 
     private Text buyLandText, buyCropText;
@@ -30,10 +30,13 @@ public class WaveEndScreen : MonoBehaviour
         buyCropText.text = $"Buy x{gameManager.cropsSold} Crop\n${gameManager.cropPrice}";
     }
 
-    public void ToggleHider(bool toggle, System.Action callback) => StartCoroutine(ToggleHiderCo(toggle, callback));
+    public void ToggleHider(bool toggle, System.Action callback, bool gameOver) => StartCoroutine(ToggleHiderCo(toggle, callback, gameOver));
 
-    IEnumerator ToggleHiderCo(bool toggle, System.Action callback) {
-        if (!toggle) waveEndButtons.SetActive(false);
+    IEnumerator ToggleHiderCo(bool toggle, System.Action callback, bool gameOver) {
+        if (!toggle) {
+            roundEndButtons.SetActive(false);
+            gameOverScreen.SetActive(false);
+        }
         float startY = toggle ? size : 0;
         float stopY = toggle ? 0 : -size;
         float startTime = Time.realtimeSinceStartup;
@@ -50,9 +53,11 @@ public class WaveEndScreen : MonoBehaviour
         position.y = stopY;
         Hider.localPosition = position;
         if (toggle) {
-            waveEndButtons.SetActive(true);
-            buyLandButton.SetActive(GameManager.Instance.MoneyAmount >= gameManager.landPrice);
-            buyCropButton.SetActive(GameManager.Instance.MoneyAmount >= gameManager.cropPrice);
+            roundEndButtons.SetActive(!gameOver);
+            buyLandButton.SetActive(!gameOver && GameManager.Instance.MoneyAmount >= gameManager.landPrice);
+            buyCropButton.SetActive(!gameOver && GameManager.Instance.MoneyAmount >= gameManager.cropPrice);
+
+            gameOverScreen.SetActive(gameOver);
         }
         callback();
     }

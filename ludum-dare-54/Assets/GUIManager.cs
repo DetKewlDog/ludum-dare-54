@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,17 +7,17 @@ public class GUIManager : MonoBehaviour
     public static GUIManager Instance;
 
     [Header("HUD")]
+    public GameObject hud;
     public Text moneyText;
     public Text cropText;
     public Text landText;
 
     [Header("Clock")]
-    public GameObject clockContainer;
     public UIClock clock;
     public Text clockText;
 
-    [Header("Wave End Screen")]
-    public WaveEndScreen waveEndScreen;
+    [Header("Round End Screen")]
+    public RoundEndScreen roundEndScreen;
 
     void Awake() => Instance = this;
 
@@ -30,9 +28,12 @@ public class GUIManager : MonoBehaviour
         clock.SetPercentage(value / maxValue);
     }
 
-    public void ToggleWaveEndScreen(bool toggle, System.Action callback) => waveEndScreen.ToggleHider(toggle, callback);
+    public void ToggleRoundEndScreen(bool toggle, Action callback, bool gameOver = false) {
+        roundEndScreen.ToggleHider(toggle, callback, gameOver);
+        if (gameOver) hud.SetActive(false);
+    }
 
     internal void SetMoney(int value) => moneyText.text = value.ToString();
     internal void SetCrop(int value) => cropText.text = value.ToString();
-    internal void SetLand(Vector2Int size) => landText.text = $"{size.x}x{size.y}";
+    internal void SetLand(Vector2Int size) => landText.text = $"{Mathf.Max(size.x, 0)}x{Mathf.Max(size.y, 0)}";
 }
