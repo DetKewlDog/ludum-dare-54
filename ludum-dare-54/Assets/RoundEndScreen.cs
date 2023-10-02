@@ -9,6 +9,8 @@ public class RoundEndScreen : MonoBehaviour
     public GameObject roundEndButtons, gameOverScreen;
     public GameObject buyLandButton, buyCropButton;
 
+    public bool isMainMenu = false;
+
     private Text buyLandText, buyCropText;
     private GameManager gameManager;
 
@@ -23,6 +25,8 @@ public class RoundEndScreen : MonoBehaviour
     void Start() {
         gameManager = GameManager.Instance;
 
+        if (isMainMenu) return;
+
         buyLandText = buyLandButton.GetComponentInChildren<Text>();
         buyCropText = buyCropButton.GetComponentInChildren<Text>();
 
@@ -33,7 +37,7 @@ public class RoundEndScreen : MonoBehaviour
     public void ToggleHider(bool toggle, System.Action callback, bool gameOver) => StartCoroutine(ToggleHiderCo(toggle, callback, gameOver));
 
     IEnumerator ToggleHiderCo(bool toggle, System.Action callback, bool gameOver) {
-        if (!toggle) {
+        if (!toggle && !isMainMenu) {
             roundEndButtons.SetActive(false);
             gameOverScreen.SetActive(false);
         }
@@ -41,18 +45,18 @@ public class RoundEndScreen : MonoBehaviour
         float stopY = toggle ? 0 : -size;
         float startTime = Time.realtimeSinceStartup;
         float time = 0;
-        Vector3 position = Hider.localPosition;
-        position.y = startY;
-        Hider.localPosition = position;
+        Vector3 startPosition = Hider.localPosition, endPosition = Hider.localPosition;
+        startPosition.y = startY;
+        endPosition.y = stopY;
+        Hider.localPosition = endPosition;
         while (time < toggleDuration) {
-            position.y = Mathf.Lerp(startY, stopY, time / toggleDuration);
-            Hider.localPosition = position;
+            Hider.localPosition = Vector3.Slerp(startPosition, endPosition, time / toggleDuration);
             time = Time.realtimeSinceStartup - startTime;
             yield return null;
         }
-        position.y = stopY;
-        Hider.localPosition = position;
-        if (toggle) {
+        endPosition.y = stopY;
+        Hider.localPosition = endPosition;
+        if (toggle && !isMainMenu) {
             roundEndButtons.SetActive(!gameOver);
             buyLandButton.SetActive(!gameOver && GameManager.Instance.MoneyAmount >= gameManager.landPrice);
             buyCropButton.SetActive(!gameOver && GameManager.Instance.MoneyAmount >= gameManager.cropPrice);

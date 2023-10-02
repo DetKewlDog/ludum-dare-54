@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public bool isMainMenu = false;
+
     [Header("Settings")]
     public int timePerRound = 30;
     public int landPrice = 100;
@@ -41,28 +43,32 @@ public class GameManager : MonoBehaviour
     void Awake() => Instance = this;
 
     void Start() {
-        Time.timeScale = 0;
+        Time.timeScale = isMainMenu ? 1 : 0;
         levelManager = LevelManager.Instance;
         guiManager = GUIManager.Instance;
         statsManager = StatsManager.Instance;
         cameraController = CameraController.Instance;
         player = PlayerController.Instance;
 
-        MoneyAmount = moneyAmount;
-        CropAmount = cropAmount;
-
-        statsManager.RoundsCompleted = statsManager.TotalEarnings = statsManager.CropsPlanted = 0;
-
         levelManager.GenerateLevel();
-        guiManager.SetLand(levelManager.farmSize);
+
+        if (!isMainMenu) {
+            MoneyAmount = moneyAmount;
+            CropAmount = cropAmount;
+            statsManager.RoundsCompleted = statsManager.TotalEarnings = statsManager.CropsPlanted = 0;
+            guiManager.SetLand(levelManager.farmSize);
+        }
+
         guiManager.ToggleRoundEndScreen(false, () => {
             Time.timeScale = 1;
-            cameraController.target = player.transform;
+            if (isMainMenu) return;
+            cameraController.target = player?.transform;
         });
     }
 
     void Update()
     {
+        if (isMainMenu) return;
         if (Time.timeScale == 0) return;
         float timeRemaining = timePerRound - Time.time % timePerRound;
         guiManager.SetClock(timeRemaining, timePerRound);

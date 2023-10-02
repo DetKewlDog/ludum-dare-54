@@ -30,6 +30,12 @@ public class Crop : ScriptableObject
         UpdateMoisture();
     }
 
+    public void GrowRandomly() {
+        age = Random.value + 0.2f;
+        UpdateCrop();
+        LevelManager.Instance.StopCoroutine(growCo);
+    }
+
     public void Destroy() {
         LevelManager.Instance.StopCoroutine(growCo);
         cropTilemap.SetTile(pos, null);

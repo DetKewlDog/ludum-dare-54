@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
 
     [Tooltip("Farm size has to be not divisible by 2, since (0, 0) is also included in the farm")]
     public Vector2Int farmSize = new Vector2Int(21, 11);
+    public bool isMainMenu = false;
 
     [Space]
     public TileBase fenceTile;
@@ -49,7 +50,7 @@ public class LevelManager : MonoBehaviour
         var farmTile = GetPlacedCrop(position);
         if (farmTile == null || !farmTile.IsUsable || farmTile.Crop != null) return false;
         farmTile.Crop = crop;
-        statsManager.CropsPlanted++;
+        if (statsManager != null) statsManager.CropsPlanted++;
         return true;
     }
 
@@ -59,6 +60,14 @@ public class LevelManager : MonoBehaviour
         UpdateFence();
         originalFarmPositions = farmTilemap.FillWithTile(farmlandTiles[0], cornerBottomLeft, cornerTopRight);
         placedCrops = originalFarmPositions.Select(x => new PlacedCrop(x)).ToList();
+
+        if (!isMainMenu) return;
+        var crop = Resources.Load<Crop>("Crops/Crop");
+        placedCrops.ForEach(x => {
+            x.Crop = crop;
+            x.Crop.AddWater();
+            x.Crop.GrowRandomly();
+        });
     }
 
     public TileBase GetFarmlandTile(float moisture) => farmlandTiles[(int)(moisture * (farmlandTiles.Length - 1))];

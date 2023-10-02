@@ -3751,6 +3751,7 @@ MonoBehaviour:
   gameOverScreen: {fileID: 102739698}
   buyLandButton: {fileID: 11131019}
   buyCropButton: {fileID: 152228952}
+  isMainMenu: 0
 --- !u!1 &1245156699
 GameObject:
   m_ObjectHideFlags: 0
@@ -4058,6 +4059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b95379de36a204ab901a61b2046700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMainMenu: 0
   timePerRound: 30
   landPrice: 60
   cropPrice: 30
@@ -5622,12 +5624,12 @@ PrefabInstance:
     - target: {fileID: 8580439305944097639, guid: 2fef2317d7276c441b999ec8ec826026,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8580439305944097639, guid: 2fef2317d7276c441b999ec8ec826026,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8580439305944097639, guid: 2fef2317d7276c441b999ec8ec826026,
         type: 3}

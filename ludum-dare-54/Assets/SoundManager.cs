@@ -19,7 +19,7 @@ public class SoundManager : MonoBehaviour
         if (sound == null || Time.unscaledTime - Instance.lastTime <= 0.05f) return;
         var ts = Time.timeScale;
         Time.timeScale = 1;
-        AudioSource.PlayClipAtPoint(sound, PlayerController.Instance.transform.position);
+        AudioSource.PlayClipAtPoint(sound, PlayerController.Instance?.transform?.position ?? Vector2.zero);
         Time.timeScale = ts;
         Instance.lastTime = Time.unscaledTime;
     }

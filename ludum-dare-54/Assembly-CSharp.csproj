@@ -39,6 +39,7 @@
      <Compile Include="Assets\FarmerController.cs" />
      <Compile Include="Assets\GUIManager.cs" />
      <Compile Include="Assets\LoadScene.cs" />
+     <Compile Include="Assets\QuitGame.cs" />
      <Compile Include="Assets\RoundEndScreen.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Crop.cs" />
@@ -47,6 +48,7 @@
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\SoundManager.cs" />
+     <Compile Include="Assets\StartGame.cs" />
      <Compile Include="Assets\StatsManager.cs" />
      <Compile Include="Assets\UIClock.cs" />
      <None Include="Assets\ThirdParty\Ruccho\FangAutoTile\Readme.txt" />
